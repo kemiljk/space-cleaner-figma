@@ -9,37 +9,41 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 figma.showUI(__html__, { width: 300, height: 105 });
 figma.ui.onmessage = (msg) => {
-    if (msg.type === "lint-selection-spaces") {
-        function lintSelectionSpaces() {
-            return __awaiter(this, void 0, void 0, function* () {
-                figma.currentPage.selection.forEach((node) => __awaiter(this, void 0, void 0, function* () {
-                    if (node.type === "TEXT") {
-                        yield figma.loadFontAsync(node.fontName);
-                        let textToLint = node.characters;
-                        console.log(textToLint);
-                        node.characters = textToLint.replace(/  +/g, " ");
-                    }
-                }));
-            });
-        }
-        lintSelectionSpaces();
-    }
     if (msg.type === "lint-spaces") {
-        function lintSpaces() {
-            return __awaiter(this, void 0, void 0, function* () {
-                figma.currentPage.findAll().forEach((node) => __awaiter(this, void 0, void 0, function* () {
-                    if (node.type === "TEXT") {
-                        yield figma.loadFontAsync(node.fontName);
-                        let textToLint = node.characters;
-                        console.log(textToLint);
-                        node.characters = textToLint.replace(/  +/g, " ");
-                    }
-                }));
-            });
-        }
         lintSpaces();
+    }
+    if (msg.type === "lint-selection-spaces") {
+        lintSelectionSpaces();
     }
     if (msg.checkboxOn === true) {
         figma.closePlugin();
+    }
+    // Async functions
+    function lintSpaces() {
+        return __awaiter(this, void 0, void 0, function* () {
+            figma.currentPage.findAll().forEach((node) => __awaiter(this, void 0, void 0, function* () {
+                if (node.type === "TEXT") {
+                    yield figma.loadFontAsync(node.fontName);
+                    removeSpaces(node);
+                }
+            }));
+        });
+    }
+    function lintSelectionSpaces() {
+        return __awaiter(this, void 0, void 0, function* () {
+            figma.currentPage.selection.forEach((node) => __awaiter(this, void 0, void 0, function* () {
+                if (node.type === "TEXT") {
+                    yield figma.loadFontAsync(node.fontName);
+                    removeSpaces(node);
+                }
+            }));
+        });
+    }
+    function removeSpaces(node) {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (node.type === "TEXT") {
+                node.characters = node.characters.replace(/  +/g, " ");
+            }
+        });
     }
 };

@@ -155,15 +155,15 @@
     console.log(checkboxOn);
   };
 
-  document.getElementById("spaceSelectionCleaner").onclick = () => {
-    parent.postMessage(
-      { pluginMessage: { type: "lint-selection-spaces", checkboxOn } },
-      "*"
-    );
-  };
   document.getElementById("spaceCleaner").onclick = () => {
     parent.postMessage(
       { pluginMessage: { type: "lint-spaces", checkboxOn } },
+      "*"
+    );
+  };
+  document.getElementById("spaceSelectionCleaner").onclick = () => {
+    parent.postMessage(
+      { pluginMessage: { type: "lint-selection-spaces", checkboxOn } },
       "*"
     );
   };
