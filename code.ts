@@ -10,6 +10,11 @@ figma.ui.onmessage = (msg) => {
           console.log(textToLint);
           node.characters = textToLint.replace(/  +/g, " ");
         }
+        if (node.type === "SHAPE_WITH_TEXT" || node.type === "STICKY") {
+          let textToLint = node.text.characters;
+          console.log(textToLint);
+          node.text.characters = textToLint.replace(/  +/g, " ");
+        }
       });
     }
     lintSelectionSpaces();
@@ -23,6 +28,11 @@ figma.ui.onmessage = (msg) => {
           let textToLint = node.characters;
           console.log(textToLint);
           node.characters = textToLint.replace(/  +/g, " ");
+        }
+        if (node.type === "SHAPE_WITH_TEXT" || node.type === "STICKY") {
+          let textToLint = node.text.characters;
+          console.log(textToLint);
+          node.text.characters = textToLint.replace(/  +/g, " ");
         }
       });
     }
